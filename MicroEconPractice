@@ -1,0 +1,121 @@
+# Practice test for MicroEcon CLEP (Linear and Random Options)
+
+import pandas as pd
+from tabula import read_pdf
+from random import randint as rd
+
+# microDf1 = pd.read_excel('MicroTerms.xlsx')
+# microDf1 = pd.read_html('http://www.digitaleconomist.org/glossary_micro.html')
+
+Micro_QA = [('absolute advantage', 'when a firm an produce a good using\nfewer resources per unit of output than\nanother firm'),
+               ('absolute value', 'value after removing the negative signs,\nalso average opportunity cost of\nhorizontal axis on PPF'),
+               ('allocativeefficiency/efficiency in output', 'point at which marginal cost (MC) equals marginal\nvalue/equilibrium price (MV/P), or P=MC. Quantities\nof goods and services produced are those that\npeople value most highly.'),
+               ('black/underground markets', 'market for illegal\ntransactions'),
+               ('capital', 'manufactured goods that can be used in\nthe production process, including tools,\nequipment, buildings, and machinery'),
+               ('capitalist', 'private individuals control the factors of\nproduction and operate them in pursuit of\nprofit'),
+               ('change in demand', 'shift of demand curve'), ('change in quantitydemanded', 'movement along the demand\ncurve; caused by change in price'),
+               ('change in quantity supplied', 'movement along supply curve;\ncaused by change in price'), ('change in supply', 'shift of the supply curve'),
+               ('communism', 'system designed to minimize imbalance\nin wealth via the collective ownership of\nproperty; incentives often inadequate'),
+               ('comparative advantage', 'when a firm can produce a good at a lower\nopportunity cost (a smaller loss in terms of the\nproduction of another good) than another firm'),
+               ('complement', 'a good that is consumed\nwith another goo'), ('consumption smoothing', 'due to expectations of higher future\nincome, a consumer spends more in the\npresent'),
+               ('demand', 'the relationship between the quantity demanded\nand the price of a good when all other influences\non buying plans stay the same'),
+               ('demand curve', 'a graph displaying the relationship\nbetween quantity demanded and price\nof a good within a given period'),
+               ('demand schedule', 'a list/table of the quantities demanded at\neach different price when all the other\ninfluences on buying plans stay the same'),
+               ('determinants of demand (TRIBE)', 'Tastes and preferences of consumers\nprices of Related goods\nIncome of buyers\nnumber of Buyers\nExpectations for the future\nResource costs'),
+               ('determinants of supply (ROTTEN)', "Other goods' prices\n Resource costs\n Taxes and subsidies\n Technology changes\n Expectations of suppliers\n Number of suppliers "),
+               ('distributive efficiency/efficiency in\nexchange', 'consumers make choices that maximize their utility\ngiven their budgetary constraints; marginal rate of\nsubstitution (MRS) is equal for everyone in economy'),
+               ('division of labor', 'division of necessary tasks among those carrying\nout the tasks; allows people to develop expertise\nin the task(s) that they concentrate on'),
+               ('economics', 'the study of how we allocate scarce\nresources among competing ends'), ('efficiency', 'a condition that occurs when the\neconomy is using all of its resources\nproductively'),
+               ('efficiency inproduction/technological efficiency', 'when resources are being used most efficiently, so\nthat marginal product of capital over rental rate is\nequal to marginal product of labor over wage\n(MPsubK/r=MPsubL/w)'),
+               ('entreprenuership', 'the ability to identify opportunities and\norganize production, and the willingness\nto accept risk in the pursuit of rewards'),
+               ('equilibrium point', 'point of intersection between\nsupply and demand curves'),
+               ('factors of production', 'the resources that act as inputs to production:\nlabor, human capital, entrepreneurship, natural\nresources/land, capital'),
+               ('free lunch', 'a gift- getting something without\ngiving up something else'), ('functions of an economic\nsystem', 'what, how, and for whom to\nproduce'),
+               ('human capital', 'knowledge and skills acquires\nthrough training and experience'),
+               ('inferior goods', 'a good for which demand decreases\nas income increases and vise versa'),
+               ('joint product', 'complement in production'),
+               ('labor', 'the physical and mental\neffort of people'),
+               ('law of demand', 'as the price of a good rises, the quantity of\nthat good demanded by consumers fall and\nvisa versa, all other things remaining the sam'),
+               ('law of supply', 'as price increases, the quantity of a good\nsupplied in a given period will increase and vise\nversa, all other things remaining the same'),
+               ('marginal cost', 'the cost of producing one\nmore unit'),
+               ('marginal cost (MC)', 'additional cost of producing\nanother unit'),
+               ('marginal product of capital(MPsubK)', 'the additional output produced by\none more unit of capital'),
+               ('marginal product of labor(MPsubL)', 'the additional output produced by\none more units of labor'),
+               ('marginal rate of substitution\n(MRS)', 'marginal utility for one good or service\nover marginal utility for second good or\nservice (MU1/MU2), equal to P1/P2.'), 
+               ('marginal utility (MU)', 'the additional utility\n(satisfaction) from the lat unit'), ('marginal value', 'the value of one more unit'),
+               ('market supply curve', 'indicates the total quantity of a good that\nsupplier are willing and able to provide t\nvarious prices during a given period of time'),
+               ('minimum wage', 'government regulation that makes hiring\nlabor for less than a specified price\nillegal'),
+               ('natural resources/land', 'any productive resource existing in nature,\nincluding wild plants, mineral deposits,\nwind, and water'),
+               ('normal goods', 'a good for which demand increases\nas income increases and vise versa'),
+               ('normative economics', 'addresses the way things\nshould be'),
+               ('opportunity cost', 'the value of the best alternative\nsacrificed as compared to what actually\ntakes place'),
+               ('physical capital', 'the tools, instruments, machines, buildings, and\nother items that have been produced in the past\nand that are used to produce goods and services'),
+               ('positive economics', 'describes the way things are'),
+               ('price ceiling', 'artificial cap on the price of\na good'), ('price floor', 'artificially imposed minimum\nprice'),
+               ('production efficiency', 'a situation in which we cannot produce more of\none good or service without producing less of\nsomething else (P=min ATC)'),
+               ('production-possibilities\nfrontier (PPF)', 'the boundary between the combinations of\ngoods and services that can be produced and\nthe combinations that cannot be produced'),
+               ('productivity', 'output per unit of input'),
+               ('queuing cost', 'time lost due to search\nactivity/ wait time'),
+               ('rent', 'price of land/natural\nresources'),
+               ('rental rate (r)', 'price of capital'),
+               ('rent control/rent ceiling', 'a regulation that makes it illegal to charge\nmore than a specified rent for housing'),
+               ('scarcity', 'the condition that arises because wants\nexceed the ability of resources to satisfy\nthem'),
+               ('shortage', 'quantity demanded exceeds\nquantity demanded'),
+               ('slope', '"rise over run," or vertical change\nover horizontal change'),
+               ('socialism', 'system designed to minimize imbalance in wealth\nwith wages determined by negotiations between\ntrade unions and managers; incentives often\ninadequate'),
+               ('specialization', 'concentrating on the\nproduction of only one good'),
+               ('subsidy', 'a payment by the government to\nproducers to cover part of the cost of\nproduction'),
+               ('substitute', 'a good that can be consumed\nin place of another book'),
+               ('supply', 'the relationship between the quantity supplied\nand the price of a good when all other influences\non selling plans remain the same'),
+               ('supply curve', 'a graph displaying the relationship\nbetween the quantity supplied and the\nprice of a good within a given period'),
+               ('supply schedule', 'a list/table of the quantities supplied at\neach different price when all other\ninfluences stay the same'),
+               ('surplus', 'quantity supplied exceeds\nquantity demnded'),
+               ('tax', 'extra cost imposed by the\ngovernment'),
+               ('trade-off', 'an exchange-- giving up one\nthing to get something else'),
+               ('utility', 'satisfaction'),
+               ('wage (w)', 'price of labor')]
+
+class tester:
+
+    #__slots__ 
+
+    def __init__(self):
+        pass
+
+    def Practice():
+        C,W = 0,0
+        Ans = [x for x,y in Micro_QA]
+        Ques = [y for x,y in Micro_QA]
+        for z in range(len(Micro_QA)):
+            print('Please match The vocabulary with the definition below\n' + Ques[z])
+            response = input('answer here:')
+            if response == Ans[z]:
+                print('Correct!!\n----------------------------------------------------')
+                C += 1
+            elif response == 'Submit':
+                break
+            else:
+                print('THAT\'S NOT THE ANSWER!!!\n----------------------------------------------------')
+                W += 1
+        return 'That\'s the end of the test and you got ' + str(C) +' out of ' + str(C+W) + ' right for a score of ' + str((C/(C+W))*100) + '%'
+
+    def PracticeQuesRand():
+        Wrong,QuesSelect,Holder,C = [],0,0,0
+        Ques = [y for x,y in Micro_QA]
+        Ans = [x for x,y in Micro_QA]
+        for x in range(len(Micro_QA)):
+            QuesSelect = rd(0,len(Micro_QA))
+            print('Please match The vocabulary with the definition below\n \n' + Ques[QuesSelect] + '\n')
+            response = input('Answer Here:')
+            if response == Ans[QuesSelect]:
+                print('Correct!!\n----------------------------------------------------')
+                C += 1
+            elif response == 'Submit':
+                break
+            else:
+                print('That answer is not answer!!!! The answer is ' + str(Ans[QuesSelect] + '\n----------------------------------------------------'))
+                Wrong.append((Ans[QuesSelect],Ques[QuesSelect]))
+        return 'Thats is for the test you got ' + str(C) + ' out of ' + str((C+len(Wrong))) + ' Correct'
+
+    def PracticeCalc():
+        pass
