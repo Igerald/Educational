@@ -1,0 +1,42 @@
+class Simulation():
+
+    def __init__(self,Model,TimeInterval = 0):
+        self.Model = Model
+        self.TimeInterval = TimeInterval
+        funcWT = lambda z,x,w: z-x-w
+        if len(self.Model) == 2:
+            self.IntArr = Model[0]
+            self.ST = Model[1]
+            self.Arr = [sum(self.IntArr[:x]) for x in range(len(self.IntArr))]
+            self.EntSer = [sum(self.ST[:y]) for y in range(len(self.ST))]
+            self.EntSer = [max(x) for x in list(zip(self.Arr,self.EntSer))]
+            self.ExTim = list(map(lambda x : x[0]+x[1], list(zip(self.EntSer,self.ST))))
+            self.WT = list(map(funcWT,self.ExTim,self.ST,self.Arr))
+        elif len(self.Model) == 3:
+            self.Arr = self.Model[0]
+            self.EntSer = Model[1]
+            self.ExTim = Model[2]
+            self.ST = [x-y for x in self.ExTim for y in self.EntSer]
+            self.WT = list(map(lambda z,x: z-x,self.EntSer,self.Arr))
+
+    def FlowTime(self):
+        return round(sum(list(map(lambda i,j : i-j, self.ExTim,self.Arr)))/len(self.ExTim),2)
+
+    def WaitTime(self):
+        return round(sum(list(map(lambda i,j : i-j, self.EntSer,self.Arr)))/len(self.EntSer),2)
+
+    def TWT(self):
+        return sum(self.WT)
+
+    def NumWait(self):
+        try:
+            return float('%.2f'%(sum(self.WT)/self.TimeInterval))
+        except ZeroDivisionError:
+            return 'No value given for Time of observation'
+
+    def OtherStats(self):
+        pass
+        
+
+example1 = Simulation([[0.0,1.73,3.08,3.79,4.41],[0.0,2.90,4.66,8.05,12.57],[2.90,4.66,8.05,12.57]],15)
+example2 = Simulation([[1.73, 1.35, 0.71, 0.62, 14.28, 0.70, 15.52, 3.15, 1.76, 1.00],[2.90, 1.76, 3.39, 4.52, 4.46, 4.36, 2.07, 3.36, 2.37, 5.38]])
